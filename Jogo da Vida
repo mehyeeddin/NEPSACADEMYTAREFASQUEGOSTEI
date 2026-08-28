@@ -1,0 +1,84 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+// exercicos de gerações, apenas AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+int main(){
+    // Seu código vai aqui
+    int N, Q;
+    
+    cin >> N >> Q;
+
+        vector<vector<int>> MATRIZ(N, vector<int>(N)), OUTRAMATRIZ(N, vector<int>(N));
+    
+    for(int i = 0; i < N; i++){
+        for(int j = 0; j < N; j++){
+            char c;
+            cin >> c;
+            
+            MATRIZ[i][j] = c - '0';
+        }
+    }
+    
+    for(int generation = 0; generation < Q; generation++) {
+        if(generation%2 == 0) {
+            
+            for(int i = 0; i < N; i++) {
+              for(int j = 0; j < N; j++) {
+              int Adj = 0;
+              for(int k = i-1; k < i+2; k++) {
+                   for(int l = j-1; l < j+2; l++) {
+                     if((k >= 0 && k <= N-1) && (l >= 0 && l <= N - 1)) Adj += MATRIZ[k][l];
+                  }
+              }
+
+              Adj -= MATRIZ[i][j];
+
+              if(Adj == 3 && MATRIZ[i][j] == 0) OUTRAMATRIZ[i][j] = 1;
+              if(Adj != 3 && MATRIZ[i][j] == 0) OUTRAMATRIZ[i][j] = 0;
+              if(Adj < 2 && MATRIZ[i][j] == 1) OUTRAMATRIZ[i][j] = 0;
+              if(Adj > 3 && MATRIZ[i][j] == 1) OUTRAMATRIZ[i][j] = 0;
+              if((Adj == 3 || Adj == 2) && MATRIZ[i][j] == 1) OUTRAMATRIZ[i][j] = 1;
+              
+          }
+      }  
+            
+        } else
+            for(int i = 0; i < N; i++) {
+          for(int j = 0; j < N; j++) {
+              int Adj = 0;
+             for(int k = i-1; k < i+2; k++) {
+               for(int l = j-1; l < j+2; l++) {
+                     if((k >= 0 && k <= N-1) && (l >= 0 && l <= N - 1)) Adj += OUTRAMATRIZ[k][l];
+                  }
+              }
+
+              Adj -= OUTRAMATRIZ[i][j];
+
+              if(Adj == 3 && OUTRAMATRIZ[i][j] == 0) MATRIZ[i][j] = 1;
+              if(Adj != 3 && OUTRAMATRIZ[i][j] == 0) MATRIZ[i][j] = 0;
+              if(Adj < 2 && OUTRAMATRIZ[i][j] == 1) MATRIZ[i][j] = 0;
+              if(Adj > 3 && OUTRAMATRIZ[i][j] == 1) MATRIZ[i][j] = 0;
+              if((Adj == 3 || Adj == 2) && OUTRAMATRIZ[i][j] == 1) MATRIZ[i][j] = 1;
+              
+          }
+      }
+    }
+
+    if(Q%2 == 0) {
+        for(int i = 0; i < N; i++) {
+            for(int j = 0; j < N; j++) {
+                cout << MATRIZ[i][j];
+            }
+            cout << endl;
+        }
+    } else {
+        for(int i = 0; i < N; i++) {
+            for(int j = 0; j < N; j++) {
+                cout << OUTRAMATRIZ[i][j];
+            }
+            cout << endl;
+        }
+    }
+    return 0;
+}
