@@ -1,0 +1,93 @@
+#include <iostream>
+#include <queue>
+
+using namespace std;
+
+int main(){
+    // Primeira vez utilizando filas, achei legal
+    queue<char> Fila, FilaAuxiliar;
+
+    Fila.push('A');
+    Fila.push('B');
+    Fila.push('C');
+    Fila.push('D');
+    Fila.push('E');
+    Fila.push('F');
+    Fila.push('G');
+    Fila.push('H');
+    Fila.push('I');
+    Fila.push('J');
+    Fila.push('K');
+    Fila.push('L');
+    Fila.push('M');
+    Fila.push('N');
+    Fila.push('O');
+    Fila.push('P');
+
+    int A, B;
+
+    for(int i = 0; i < 8; i++) {
+        cin >> A >> B;
+
+        char Auxiliar = Fila.front();
+        Fila.pop();
+
+        if(A > B) {
+          FilaAuxiliar.push(Auxiliar);
+          Fila.pop();
+        }
+
+        if(A < B) {
+          FilaAuxiliar.push(Fila.front());
+          Fila.pop();
+        }
+    }
+
+    for(int i = 0; i < 4; i++) {
+        cin >> A >> B;
+
+        char Auxiliar = FilaAuxiliar.front();
+        FilaAuxiliar.pop();
+
+        if(A > B) {
+          Fila.push(Auxiliar);
+          FilaAuxiliar.pop();
+        }
+
+        if(A < B) {
+          Fila.push(FilaAuxiliar.front());
+          FilaAuxiliar.pop();
+        }
+    }
+
+    for(int i = 0; i < 2; i++) {
+        cin >> A >> B;
+
+        char Auxiliar = Fila.front();
+        Fila.pop();
+
+        if(A > B) {
+          FilaAuxiliar.push(Auxiliar);
+          Fila.pop();
+        }
+
+        if(A < B) {
+          FilaAuxiliar.push(Fila.front());
+          Fila.pop();
+        }
+    }
+
+    cin >> A >> B;
+
+    char Auxiliar = FilaAuxiliar.front();
+    FilaAuxiliar.pop();
+
+    if(A > B) {
+        cout << Auxiliar;
+     }
+
+    if(A < B) {
+        cout << FilaAuxiliar.front();
+    }
+    return 0;
+}
