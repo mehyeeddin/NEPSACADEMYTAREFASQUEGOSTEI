@@ -1,0 +1,56 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <queue>
+#include <algorithm>
+
+using namespace std;
+
+struct Aluno {
+        string Nome;
+        int Habilidade;
+};
+
+int main() {
+    // Exercicio extremamente CHATOOOOOOOOOOOOOOOOOOOOOOO. Estudar melhor o stl e funcoes lambdas
+    int N, T;
+    
+    cin >> N >> T;
+
+    
+    vector<vector<string>> Times(T, vector<string>());
+    vector<Aluno> Alunos(N);
+    
+    for(int i = 0; i < N; i++) {
+        cin >> Alunos[i].Nome >> Alunos[i].Habilidade;
+    }
+
+    // Interessante estudar funcoes lambdas depois
+    sort(Alunos.begin(), Alunos.end(), [](const Aluno &a, const Aluno &b) {
+    return a.Habilidade > b.Habilidade;
+});
+
+    for(int i = 0; i < N; i++) {
+        int Time = i % T;
+
+        Times[Time].push_back(Alunos[i].Nome);
+    }
+
+    for(int i = 0; i < T; i++) {
+        sort(Times[i].begin(), Times[i].end());
+    }
+    
+    for(int i = 0; i < T; i++) {
+        cout << "Time " << i+1 << endl;
+
+        
+        int Tamanho = Times[i].size();
+        
+        for(int j = 0; j < Tamanho; j++) {
+            cout << Times[i][j] << endl;
+        }
+
+        cout << endl;
+    }
+    return 0;
+}
