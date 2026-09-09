@@ -1,0 +1,42 @@
+#include <iostream>
+#include <vector>
+//Primeiro DFS que usei na vida, legal
+using namespace std;
+
+vector<vector<int>> Amigos;
+vector<int> Visitado;
+
+void DFS(int Vertice) {
+    Visitado[Vertice] = 1;
+
+    for(int i : Amigos[Vertice]) if(!Visitado[i]) {
+        DFS(i);
+    }
+}
+
+int main(){
+    
+   int N, M, Times = 0;
+
+   cin >> N >> M;
+
+    Visitado.resize(N);
+    Amigos.resize(N);
+
+  for(int i = 0; i < M; i++) {
+    int Valor1, Valor2;
+
+    cin >> Valor1 >> Valor2; Valor1--; Valor2--;
+
+    Amigos[Valor1].push_back(Valor2);
+    Amigos[Valor2].push_back(Valor1);
+  }
+
+  for(int i = 0; i < N; i++) if(!Visitado[i]) {
+        DFS(i);
+        Times++;
+  }
+  cout << Times;
+
+    return 0;
+}
