@@ -1,0 +1,29 @@
+#include <iostream>
+
+using namespace std;
+
+// Contato com o algoritimo de euclides dentro da progamacao, um uso pratico perfeito de exemplo que consolidou algumas ideias.
+int MDC(long long a, long long b) {
+    long long Resto;
+
+    while(b != 0) {
+        Resto = a % b;
+        a = b;
+        b = Resto;
+    }
+
+    return a;
+}
+int main(){
+    // Seu código vai aqui
+    long long N, M; cin >> N >> M;
+
+    for(long long i = M; i >= 1; i--) {
+
+        if(MDC(N, i) == 1) {
+            cout << i;
+            break;
+        }
+    }
+    return 0;
+}
